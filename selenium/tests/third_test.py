@@ -3,7 +3,7 @@ import sys
 
 class DummyTestDashboard(unittest.TestCase):
     def test_board(self):
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 if __name__ == '__main__':
     result = unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(DummyTest))
