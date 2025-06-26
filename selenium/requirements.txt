@@ -1,2 +1,2 @@
 selenium==4.21.0
-xmlrunner==1.7.7
+unittest-xml-reporting==3.2.0
