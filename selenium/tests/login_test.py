@@ -3,8 +3,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from time import sleep
+import os
 
-URL = "http://localhost:3002/login"
+# Read target URL from environment or fallback to localhost
+base_url = os.getenv("TARGET_HOST", "http://localhost:3002")
+URL = f"{base_url}/login"
+
+# Set path to local chromedriver
 # https://storage.googleapis.com/chrome-for-testing-public/138.0.7204.49/win32/chromedriver-win32.zip
 CHROMEDRIVER_PATH = "./driver/chromedriver.exe"
 
