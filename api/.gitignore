@@ -1,0 +1,21 @@
+# compiled output
+dist/
+build/
+
+# node modules
+node_modules/
+
+# logs
+logs
+*.log
+npm-debug.log*
+
+# dotenv files (if added later)
+.env
+
+# IDEs
+.vscode/
+.idea/
+
+# misc
+.DS_Store
