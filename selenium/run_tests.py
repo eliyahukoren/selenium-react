@@ -2,7 +2,7 @@ import unittest
 import xmlrunner
 
 if __name__ == '__main__':
-    output_dir = "/workspace/selenium-poc/selenium-poc/reports"
+    output_dir = "/workspace/selenium-poc/selenium/reports"
     loader = unittest.TestLoader()
     suite = loader.discover(start_dir='tests', pattern='*_test.py')
 
