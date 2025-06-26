@@ -1,9 +1,9 @@
 import unittest
 import sys
 
-class DummyTestFail(unittest.TestCase):
-    def test_fail(self):
-        self.assertTrue(False)
+class DummyTestDashboard(unittest.TestCase):
+    def test_board(self):
+        self.assertTrue(True)
 
 if __name__ == '__main__':
     result = unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(DummyTest))
