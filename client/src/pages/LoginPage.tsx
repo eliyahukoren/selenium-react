@@ -32,15 +32,7 @@ const LoginPage = () => {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={{
-        backgroundImage: 'url("/assets/urban-bg.jpg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: 'lightsalmon',
-      }}
-    >
+      className="d-flex justify-content-center align-items-center vh-100">
       <div
         className="card p-4 shadow"
         style={{ width: 350, backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
