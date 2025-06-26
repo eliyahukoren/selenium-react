@@ -25,6 +25,14 @@ chrome_options = Options()
 chrome_options.add_argument("--log-level=3")  # suppress logs
 chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])  # suppress DevTools warning
 
+# Avoid conflict by setting unique user profile on Linux
+# Fix session conflict in Docker/Linux
+if not is_windows:
+    chrome_options.add_argument("--user-data-dir=/tmp/selenium-profile")
+    chrome_options.add_argument("--headless=new")  # Optional for headless mode
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 try:
