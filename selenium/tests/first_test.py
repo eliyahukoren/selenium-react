@@ -1,8 +1,8 @@
 import unittest
 import sys
 
-class DummyTest(unittest.TestCase):
-    def test_dummy(self):
+class DummyTestLogout(unittest.TestCase):
+    def test_logout(self):
         self.assertTrue(True)
 
 if __name__ == '__main__':
