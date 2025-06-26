@@ -4,14 +4,19 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from time import sleep
 import os
+import platform
+from selenium.webdriver.chrome.service import Service
+
+# Detect OS
+is_windows = platform.system() == "Windows"
+# Set path to local chromedriver
+# https://storage.googleapis.com/chrome-for-testing-public/138.0.7204.49/win32/chromedriver-win32.zip
+CHROMEDRIVER_PATH = "./driver/chromedriver" + (".exe" if is_windows else "")
+print(CHROMEDRIVER_PATH)
 
 # Read target URL from environment or fallback to localhost
 base_url = os.getenv("TARGET_HOST", "http://localhost:3002")
 URL = f"{base_url}/login"
-
-# Set path to local chromedriver
-# https://storage.googleapis.com/chrome-for-testing-public/138.0.7204.49/win32/chromedriver-win32.zip
-CHROMEDRIVER_PATH = "./driver/chromedriver.exe"
 
 chrome_options = Options()
 chrome_options.add_argument("--log-level=3")  # suppress logs
