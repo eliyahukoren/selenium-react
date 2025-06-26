@@ -68,7 +68,7 @@ pipeline {
           docker exec ${CONTAINER_NAME} bash -c '
             export TARGET_HOST=${params.TARGET_HOST} &&
             cd ${REPO_DIR}/selenium &&
-            python tests/login_test.py
+            python run_tests.py
           '
         """
       }
