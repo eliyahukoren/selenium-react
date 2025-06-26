@@ -6,7 +6,7 @@ pipeline {
   }
 
   parameters {
-    choice(name: 'TARGET_HOST', choices: ['http://10.0.0.4', 'http://10.0.0.5'], description: 'Choose target host')
+    choice(name: 'TARGET_HOST', choices: ['http://172.19.198.108', 'http://10.0.0.5'], description: 'Choose target host')
   }
 
   environment {
@@ -17,7 +17,7 @@ pipeline {
   }
 
   stages {
-    stage('Start or Reuse Container') {
+    stage('Create Container') {
       steps {
         script {
           def containerExists = sh(script: "docker ps -a --format '{{.Names}}' | grep -w ${CONTAINER_NAME} || true", returnStdout: true).trim()
@@ -33,20 +33,19 @@ pipeline {
       }
     }
 
-    stage('Install system and Python dependencies') {
+    stage('Install system') {
       steps {
         sh """
           docker exec ${CONTAINER_NAME} bash -c '
             apt update &&
             apt install -y chromium chromium-driver &&
-            apt install -y git curl unzip chromium chromium-driver &&
-            pip install -r ${REPO_DIR}/selenium/requirements.txt
+            apt install -y git curl unzip chromium chromium-driver
           '
         """
       }
     }
 
-    stage('Clone or Pull Repository') {
+    stage('Get Repo') {
       steps {
         script {
           def repoExists = sh(script: "docker exec ${CONTAINER_NAME} sh -c 'test -d ${REPO_DIR} && echo exists || echo missing'", returnStdout: true).trim()
@@ -62,7 +61,17 @@ pipeline {
       }
     }
 
-    stage('Run Selenium Tests') {
+    stage('Install Python Dep') {
+      steps {
+        sh """
+          docker exec ${CONTAINER_NAME} bash -c '
+            pip install -r ${REPO_DIR}/selenium/requirements.txt
+          '
+        """
+      }
+    }
+
+    stage('Run Tests') {
       steps {
         sh """
           docker exec ${CONTAINER_NAME} bash -c '
@@ -72,6 +81,16 @@ pipeline {
           '
         """
       }
+    }
+  }
+
+  post {
+    always {
+      // Copy reports from container to Jenkins workspace
+      sh "docker cp ${CONTAINER_NAME}:${REPO_DIR}/selenium/reports ./selenium/reports || true"
+
+      // Publish test results
+      junit 'selenium/reports/*.xml'
     }
   }
 }
